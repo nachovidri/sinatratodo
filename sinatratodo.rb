@@ -3,7 +3,7 @@ class Todolist
 end
 
 class Task
-	attr_reader :content, :id
+	attr_reader :content, :id, :created_at
 	@@current_id = 1
 
 	def initialize content
@@ -11,9 +11,10 @@ class Task
 		@id = @@current_id
 		@@current_id = @@current_id + 1
 		@completed = false
+		@created_at = Time.now.strftime("%F")
 	end
 
-	def status?
+	def complete?
 		@completed
 	end
 
@@ -24,6 +25,10 @@ class Task
 	def make_incomplete!
 		@completed = false
 	end
-	
+
+	def update_content! content
+		@content = content
+	end
+
 end
 
