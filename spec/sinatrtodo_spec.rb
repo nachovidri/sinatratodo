@@ -15,6 +15,9 @@ describe "Sinatra TO-DO" do
 		expect(@task.complete!).to eq(true) 
 	end
 
+	it "it returns false for every task" do
+		expect(@task.make_incomplete!).to eq(false) 
+	end
 
 
 		
