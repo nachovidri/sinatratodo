@@ -17,5 +17,9 @@ class Task
 		@completed
 	end
 
+	def complete!
+		@completed = true
+	end
+
 end
 

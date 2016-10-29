@@ -11,6 +11,10 @@ describe "Sinatra TO-DO" do
 		expect(@task.status?).to eq(false) 
 	end
 
+	it "it returns true for every task" do
+		expect(@task.complete!).to eq(true) 
+	end
+
 
 
 		
