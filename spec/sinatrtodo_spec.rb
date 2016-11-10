@@ -29,6 +29,30 @@ describe "Sinatra TO-DO" do
 		expect(@task.content).to eq(@task.content) 
 	end
 
+	before :each do
+		@todolist = Todolist.new
+	end
 
+	it "it adds a task to the todo list" do
+		@todolist.add(Task.new ("Hola"))
+		expect(@todolist.tasks[-1].content).to eq("Hola") 
+	end
+
+	it "it deletes a task from the todo list" do
+		@todolist.add(Task.new ("Walk the dog"))
+		@todolist.add(Task.new ("Para borrar"))
+		id = @todolist.tasks[-1].id
+		@todolist.delete_task(id)
+		expect(@todolist.tasks[-1].id).to eq(id-1)
+	end
+
+	it "finds a task from the todo list by its id" do
+		@@current_id = 0
+		@todolist.add(Task.new ("Walk the dog"))
+		@todolist.add(Task.new ("Buy milk"))
+		# @task_found = Todolist.new
+		@task_found = @todolist.find_task_by_id(1)
+		expect(@task_found[0].id).to eq(1) 
+	end
 		
 end
