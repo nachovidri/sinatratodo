@@ -30,7 +30,7 @@ describe "Sinatra TO-DO" do
 	end
 
 	before :each do
-		@todolist = Todolist.new
+		@todolist = Todolist.new "Nacho"
 	end
 
 	it "it adds a task to the todo list" do
@@ -46,13 +46,25 @@ describe "Sinatra TO-DO" do
 		expect(@todolist.tasks[-1].id).to eq(id-1)
 	end
 
-	it "finds a task from the todo list by its id" do
+	it "it finds a task from the todo list by its id" do
 		@@current_id = 0
 		@todolist.add(Task.new ("Walk the dog"))
 		@todolist.add(Task.new ("Buy milk"))
-		# @task_found = Todolist.new
 		@task_found = @todolist.find_task_by_id(1)
 		expect(@task_found[0].id).to eq(1) 
 	end
+
+	it "it sorts a sorts the tasks by the creation time" do
+		@@current_id = 0
+		@todolist.add(Task.new ("Walk the dog"))
+		@todolist.add(Task.new ("Buy milk"))
+		@todolist.add(Task.new ("Clean bathroom"))
+		@todolist.tasks[0].created_at = "2016-11-10"
+		@todolist.tasks[1].created_at = "2016-10-10"
+		@todolist.tasks[2].created_at = "2015-11-10"
+		@sorted_tasks = @todolist.sort_by_created
+		expect(@sorted_tasks[0].created_at).to eq(@todolist.tasks[2].created_at)
+	end
+
 		
 end

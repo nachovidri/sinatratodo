@@ -1,50 +1,20 @@
-class Task
-	attr_reader :content, :id, :created_at
-	@@current_id = 1
+require 'sinatra'
+require 'sinatra/reloader'
+require 'pry'
 
-	def initialize content
-		@content = content
-		@id = @@current_id
-		@@current_id = @@current_id + 1
-		@completed = false
-		@created_at = Time.now.strftime("%F")
-	end
+require_relative('lib/Task.rb')
+require_relative('lib/TodoList.rb')
 
-	def complete?
-		@completed
-	end
+@@todo_list = Todolist.new("Josh")
+task1 = Task.new "Walk the dog"
+task2 = Task.new "Clean the bathroom"
+task3 = Task.new "Clean the kitchen"
+@@todo_list.add task1
+@@todo_list.add task2
+@@todo_list.add task3
 
-	def complete!
-		@completed = true
-	end
+# binding.pry
 
-	def make_incomplete!
-		@completed = false
-	end
-
-	def update_content! content
-		@content = content
-	end
-end
-
-class Todolist
-
-	attr_reader :tasks
-
-	def initialize
-		@tasks = []
-	end
-
-	def add task
-		@tasks.push(task)
-	end
-
-	def delete_task id
-		@tasks.delete_if{|task| task.id == id}
-	end
-
-	def find_task_by_id id
-		@tasks.select{|task| task.id == id}
-	end
-
+get '/' do
+	erb(:task_index)
 end
